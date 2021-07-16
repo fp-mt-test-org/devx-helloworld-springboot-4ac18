@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: devx-helloworld-springboot-4ac18
+    backstage.io/kubernetes-id: devx-helloworld-springboot-4ac18
+  name: devx-helloworld-springboot-4ac18
+  namespace: '{{ .Values.config.namespace }}'
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: devx-helloworld-springboot-4ac18
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: devx-helloworld-springboot-4ac18
+    spec:
+      containers:
+      - image: vad1mo/hello-world-rest
+        imagePullPolicy: IfNotPresent
+        name: devx-helloworld-springboot-4ac18
+        resources: {}
+        ports:
+          - containerPort: 5050 
+        readinessProbe:
+          httpGet:
+            path: /actuator/health
+            port: 5050
+          periodSeconds: 5
+status: {}
